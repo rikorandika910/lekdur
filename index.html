@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff512f, #dd2476, #24c6dc, #514a9d);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .login-box, .barang-box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      width: 300px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li {
+      background: rgba(255,255,255,0.2);
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Form -->
+  <div class="login-box" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Masuk</button>
+    <p id="errorMsg" style="color: yellow; display:none;">Username / Password salah!</p>
+  </div>
+
+  <!-- Halaman Barang -->
+  <div class="barang-box" id="barangBox" style="display:none;">
+    <h2>Daftar Barang</h2>
+    <ul>
+      <li>📱 Handphone</li>
+      <li>💻 Laptop</li>
+      <li>🎧 Headset</li>
+      <li>⌚ Smartwatch</li>
+      <li>📷 Kamera</li>
+    </ul>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      // contoh login statis
+      if (user === "bima" && pass === "123") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("barangBox").style.display = "block";
+      } else {
+        document.getElementById("errorMsg").style.display = "block";
+      }
+    }
+
+    function logout() {
+      document.getElementById("barangBox").style.display = "none";
+      document.getElementById("loginBox").style.display = "block";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("errorMsg").style.display = "none";
+    }
+  </script>
+</body>
+</html>
