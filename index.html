@@ -1,109 +1,121 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login Page</title>
+  <title>Payment Page</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f7971e, #ff512f);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ff512f, #dd2476, #24c6dc, #514a9d);
-      background-size: 400% 400%;
-      animation: gradientBG 10s ease infinite;
+      height: 100vh;
     }
+
     @keyframes gradientBG {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .login-box, .barang-box {
-      background: rgba(255,255,255,0.1);
-      padding: 30px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      color: white;
-      text-align: center;
-      width: 300px;
+
+    .payment-box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 350px;
     }
-    input {
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+    }
+
+    input, select {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      border: none;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 14px;
     }
+
     button {
-      padding: 10px 20px;
-      background: #2563eb;
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #36d1dc, #5b86e5);
       border: none;
-      border-radius: 8px;
       color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background: #1e40af;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-    ul li {
-      background: rgba(255,255,255,0.2);
-      margin: 5px 0;
-      padding: 10px;
+      font-size: 16px;
       border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #5b86e5, #36d1dc);
+    }
+
+    .success {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Login Form -->
-  <div class="login-box" id="loginBox">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="login()">Masuk</button>
-    <p id="errorMsg" style="color: yellow; display:none;">Username / Password salah!</p>
-  </div>
+  <div class="payment-box">
+    <h2>💳 Payment</h2>
+    <form id="paymentForm">
+      <label>Nama Pemilik Kartu</label>
+      <input type="text" required>
 
-  <!-- Halaman Barang -->
-  <div class="barang-box" id="barangBox" style="display:none;">
-    <h2>Daftar Barang</h2>
-    <ul>
-      <li>📱 Handphone</li>
-      <li>💻 Laptop</li>
-      <li>🎧 Headset</li>
-      <li>⌚ Smartwatch</li>
-      <li>📷 Kamera</li>
-    </ul>
-    <button onclick="logout()">Logout</button>
+      <label>Nomor Kartu</label>
+      <input type="text" maxlength="16" placeholder="1234 5678 9012 3456" required>
+
+      <label>Metode Pembayaran</label>
+      <select required>
+        <option value="">-- Pilih Metode --</option>
+        <option>Credit Card</option>
+        <option>Debit Card</option>
+        <option>OVO</option>
+        <option>Dana</option>
+        <option>Gopay</option>
+      </select>
+
+      <label>Nominal</label>
+      <input type="number" placeholder="Rp" required>
+
+      <button type="submit">Bayar Sekarang</button>
+    </form>
+    <div class="success">✅ Pembayaran Berhasil!</div>
   </div>
 
   <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+    const form = document.getElementById("paymentForm");
+    const successMsg = document.querySelector(".success");
 
-      // contoh login statis
-      if (user === "bima" && pass === "123") {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("barangBox").style.display = "block";
-      } else {
-        document.getElementById("errorMsg").style.display = "block";
-      }
-    }
-
-    function logout() {
-      document.getElementById("barangBox").style.display = "none";
-      document.getElementById("loginBox").style.display = "block";
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-      document.getElementById("errorMsg").style.display = "none";
-    }
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      successMsg.style.display = "block";
+      setTimeout(() => {
+        successMsg.style.display = "none";
+        form.reset();
+      }, 3000);
+    });
   </script>
 </body>
 </html>
