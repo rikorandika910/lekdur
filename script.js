@@ -1,24 +1,40 @@
 const audio = document.getElementById("audio");
-const title = document.getElementById("title");
+const title = document.getElementById("song-title");
+const playlistEl = document.getElementById("playlist");
 
 const playBtn = document.getElementById("play");
 const nextBtn = document.getElementById("next");
 const prevBtn = document.getElementById("prev");
 const repeatBtn = document.getElementById("repeat");
 
-let repeat = false;
 let index = 0;
+let repeat = false;
 
-// Daftar musik — ganti URL sesuai kebutuhan
 let songs = [
   { title: "Flatline", src: "Flatline.mp3" },
-  { title: "Song 2", src: "song2.mp3" },
-  { title: "Song 3", src: "song3.mp3" }
+  { title: "Lagu Kedua", src: "song2.mp3" },
+  { title: "Lagu Ketiga", src: "song3.mp3" }
 ];
 
-function loadSong(i) {
-  audio.src = songs[i].src;
-  title.textContent = songs[i].title;
+function renderPlaylist() {
+  playlistEl.innerHTML = "";
+  songs.forEach((s, i) => {
+    const li = document.createElement("li");
+    li.textContent = s.title;
+    if (i === index) li.classList.add("active");
+    li.onclick = () => {
+      index = i;
+      loadSong();
+      playMusic();
+    };
+    playlistEl.appendChild(li);
+  });
+}
+
+function loadSong() {
+  audio.src = songs[index].src;
+  title.textContent = songs[index].title;
+  renderPlaylist();
 }
 
 function playMusic() {
@@ -37,30 +53,27 @@ playBtn.onclick = () => {
 
 nextBtn.onclick = () => {
   index = (index + 1) % songs.length;
-  loadSong(index);
+  loadSong();
   playMusic();
 };
 
 prevBtn.onclick = () => {
   index = (index - 1 + songs.length) % songs.length;
-  loadSong(index);
+  loadSong();
   playMusic();
 };
 
 repeatBtn.onclick = () => {
   repeat = !repeat;
-  repeatBtn.style.color = repeat ? "#4caf50" : "white";
+  repeatBtn.style.color = repeat ? "lime" : "cyan";
 };
 
 audio.onended = () => {
   if (repeat) {
     playMusic();
   } else {
-    index = (index + 1) % songs.length;
-    loadSong(index);
-    playMusic();
+    nextBtn.onclick();
   }
 };
 
-// Load awal
-loadSong(index);
+loadSong();
