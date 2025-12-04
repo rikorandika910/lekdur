@@ -3,36 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neon Glass Music Player</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Pemutar Musik Sederhana</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .player {
+      background: #222;
+      padding: 20px;
+      width: 300px;
+      margin: auto;
+      border-radius: 12px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1 class="title">Neon Music Player</h1>
+  <h2>Pemutar Musik Sederhana</h2>
 
-  <div class="player-card">
+  <div class="player">
+    <p id="song-title">Memuat lagu...</p>
 
-    <div class="visualizer">
-      <span></span><span></span><span></span><span></span><span></span>
-    </div>
+    <audio id="audio" controls autoplay></audio>
 
-    <p id="song-title" class="song-title">Memuat...</p>
-
-    <audio id="audio"></audio>
-
-    <div class="controls">
-      <button id="prev" class="btn">⏮</button>
-      <button id="play" class="btn big">▶</button>
-      <button id="next" class="btn">⏭</button>
-      <button id="repeat" class="btn">🔁</button>
-    </div>
-
-    <ul class="playlist" id="playlist"></ul>
-
+    <br>
+    <button onclick="prevSong()">Prev</button>
+    <button onclick="nextSong()">Next</button>
   </div>
-</div>
 
-<script src="script.js"></script>
+  <script>
+    // DAFTAR MUSIK — GANTI DENGAN RAW LINK MP3 KAMU
+    const playlist = [
+      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Flatline.mp3",
+      // Tambah musik lain:
+      // "https://raw.githubusercontent.com/USERNAME/REPO/BRANCH/NAMA2.mp3"
+    ];
+
+    let index = 0;
+
+    const audio = document.getElementById("audio");
+    const title = document.getElementById("song-title");
+
+    function loadSong(i) {
+      audio.src = playlist[i];
+      title.textContent = "Memutar: " + playlist[i].split("/").pop();
+      audio.play();
+    }
+
+    function nextSong() {
+      index = (index + 1) % playlist.length;
+      loadSong(index);
+    }
+
+    function prevSong() {
+      index = (index - 1 + playlist.length) % playlist.length;
+      loadSong(index);
+    }
+
+    audio.addEventListener("ended", nextSong);
+
+    // Mulai
+    loadSong(index);
+  </script>
+
 </body>
 </html>
