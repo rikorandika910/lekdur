@@ -1,34 +1,126 @@
 body {
   margin: 0;
-  padding: 0;
-  background: #121212;
-  font-family: Arial;
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(145deg, #0a0f1f, #031a2f);
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  color: #fff;
 }
 
-.player {
-  width: 300px;
-  background: #1f1f1f;
-  border-radius: 14px;
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: cyan;
+  text-shadow: 0 0 10px cyan;
+}
+
+.container {
+  width: 350px;
+}
+
+.player-card {
+  background: rgba(255,255,255,0.06);
   padding: 20px;
-  color: #fff;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
   text-align: center;
 }
 
-.controls button {
-  background: #333;
-  border: none;
+.song-title {
+  margin: 15px 0;
+  font-size: 18px;
+  color: #aef;
+  text-shadow: 0 0 6px cyan;
+}
+
+/* Visualizer bars */
+.visualizer {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.visualizer span {
+  width: 6px;
+  height: 10px;
+  background: cyan;
+  border-radius: 5px;
+  animation: bounce 1s infinite ease-in-out;
+  opacity: 0.6;
+}
+
+.visualizer span:nth-child(1) { animation-delay: .1s; }
+.visualizer span:nth-child(2) { animation-delay: .2s; }
+.visualizer span:nth-child(3) { animation-delay: .3s; }
+.visualizer span:nth-child(4) { animation-delay: .4s; }
+.visualizer span:nth-child(5) { animation-delay: .5s; }
+
+@keyframes bounce {
+  0%, 100% { height: 10px; }
+  50% { height: 35px; }
+}
+
+.controls {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn {
+  background: rgba(255,255,255,0.1);
   padding: 10px 15px;
-  margin: 5px;
-  border-radius: 8px;
-  color: white;
+  border: none;
+  color: cyan;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  text-shadow: 0 0 8px cyan;
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  transition: 0.2s;
+}
+
+.btn.big {
+  font-size: 24px;
+  padding: 12px 18px;
+}
+
+.btn:hover {
+  background: rgba(0,255,255,0.2);
+  box-shadow: 0 0 12px cyan;
+}
+
+/* Playlist */
+.playlist {
+  list-style: none;
+  padding: 0;
+  margin-top: 18px;
+  text-align: left;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.playlist li {
+  padding: 10px;
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 6px;
+  border-radius: 10px;
   cursor: pointer;
   transition: 0.2s;
 }
 
-.controls button:hover {
-  background: #555;
+.playlist li:hover {
+  background: rgba(0,255,255,0.2);
+  transform: scale(1.02);
+}
+
+.playlist .active {
+  background: rgba(0,255,255,0.3);
+  font-weight: bold;
+  color: #000;
 }
