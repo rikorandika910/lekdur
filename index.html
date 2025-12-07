@@ -28,6 +28,10 @@
       cursor: pointer;
       font-size: 14px;
     }
+    .small-btn {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
   </style>
 </head>
 
@@ -43,10 +47,12 @@
     <br>
     <button onclick="prevSong()">Prev</button>
     <button onclick="nextSong()">Next</button>
+    <br>
+    <button class="small-btn" onclick="toggleShuffle()" id="shuffle-btn">Shuffle: OFF</button>
+    <button class="small-btn" onclick="toggleRepeat()" id="repeat-btn">Repeat: OFF</button>
   </div>
 
   <script>
-    // DAFTAR MUSIK — GANTI DENGAN RAW LINK MP3 KAMU
     const playlist = [
       "https://raw.githubusercontent.com/rikorandika910/wkw/main/Flatline.mp3",
       "https://raw.githubusercontent.com/rikorandika910/wkw/main/Sahabat Jadi Cinta.mp3",
@@ -58,10 +64,13 @@
       "https://raw.githubusercontent.com/rikorandika910/wkw/main/The 1975 - About You (Official).mp3",
       "https://raw.githubusercontent.com/rikorandika910/wkw/main/You Da One.mp3",
       "https://raw.githubusercontent.com/rikorandika910/wkw/main/Chris Brown - Girl You Loud (Lyrics) ft. Tyga.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/H.E.R. - Best Part (Lyrics) Ft. Daniel Caesar.mp3",
-];
+      "https://raw.githubusercontent.com/rikorandika910/wkw/main/H.E.R. - Best Part (Lyrics) Ft. Daniel Caesar.mp3"
+    ];
 
     let index = 0;
+    let shuffle = false;
+    let repeatMode = 0; 
+    // 0 = off, 1 = repeat playlist, 2 = repeat one
 
     const audio = document.getElementById("audio");
     const title = document.getElementById("song-title");
@@ -73,7 +82,11 @@
     }
 
     function nextSong() {
-      index = (index + 1) % playlist.length;
+      if (shuffle) {
+        index = Math.floor(Math.random() * playlist.length);
+      } else {
+        index = (index + 1) % playlist.length;
+      }
       loadSong(index);
     }
 
@@ -82,18 +95,32 @@
       loadSong(index);
     }
 
-    audio.addEventListener("ended", nextSong);
+    function toggleShuffle() {
+      shuffle = !shuffle;
+      document.getElementById("shuffle-btn").innerText = "Shuffle: " + (shuffle ? "ON" : "OFF");
+    }
 
-    // Mulai
+    function toggleRepeat() {
+      repeatMode = (repeatMode + 1) % 3;
+
+      const btn = document.getElementById("repeat-btn");
+      if (repeatMode === 0) btn.innerText = "Repeat: OFF";
+      if (repeatMode === 1) btn.innerText = "Repeat: ALL";
+      if (repeatMode === 2) btn.innerText = "Repeat: ONE";
+    }
+
+    audio.addEventListener("ended", () => {
+      if (repeatMode === 2) {
+        loadSong(index);
+      } else if (repeatMode === 1) {
+        nextSong();
+      } else {
+        nextSong();
+      }
+    });
+
     loadSong(index);
   </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
