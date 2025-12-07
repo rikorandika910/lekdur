@@ -1,0 +1,58 @@
+body {
+  background: radial-gradient(circle at top, #0b0018, #06000f, #000);
+  color: #fff;
+  font-family: 'Poppins', Arial, sans-serif;
+  text-align: center;
+  padding-top: 50px;
+}
+
+h2 {
+  color: #a855f7;
+  text-shadow: 0 0 15px #a855f7;
+}
+
+.player {
+  background: rgba(20, 0, 40, 0.45);
+  backdrop-filter: blur(12px);
+  width: 330px;
+  margin: auto;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 0 20px #6a00ff88, 0 0 40px #6a00ff33 inset;
+  border: 2px solid rgba(130, 0, 255, 0.3);
+}
+
+button {
+  padding: 10px 20px;
+  margin: 6px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background: linear-gradient(135deg, #5b00ff, #00eaff);
+  color: white;
+  box-shadow: 0 0 12px #6a00ffaa;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 18px #8b00ffaa;
+}
+
+.small-btn {
+  padding: 8px 15px;
+  font-size: 12px;
+}
+
+#song-title {
+  font-size: 15px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px #00eaff;
+}
+
+audio {
+  width: 100%;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 10px #00eaff);
+}
