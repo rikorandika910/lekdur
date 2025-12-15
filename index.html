@@ -11,79 +11,156 @@
       color: white;
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 50px;
+      padding-top: 40px;
     }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
     .player {
       background: #222;
       padding: 20px;
-      width: 300px;
+      width: 320px;
       margin: auto;
-      border-radius: 12px;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(0,0,0,.6);
     }
+
+    #song-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+      min-height: 20px;
+    }
+
+    audio {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
     button {
-      padding: 10px 20px;
+      padding: 10px 18px;
       margin: 5px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
+      background: #333;
+      color: white;
     }
+
+    button:hover {
+      background: #1db954;
+      color: black;
+    }
+
     .small-btn {
-      padding: 8px 14px;
+      padding: 7px 14px;
       font-size: 12px;
     }
+
+    /* Playlist */
+    .playlist {
+      margin-top: 15px;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .playlist ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .playlist li {
+      padding: 8px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .playlist li:hover {
+      background: #333;
+    }
+
+    .playlist li.active {
+      background: #1db954;
+      color: black;
+      font-weight: bold;
+    }
   </style>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spotify Lite</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <h2>My Music Fav</h2>
+  <h2>🎵 My Music Fav</h2>
 
   <div class="player">
     <p id="song-title">Memuat lagu...</p>
 
-    <audio id="audio" controls autoplay></audio>
+    <audio id="audio" controls></audio>
 
-    <br>
-    <button onclick="prevSong()">Prev</button>
-    <button onclick="nextSong()">Next</button>
-    <br>
-    <button class="small-btn" onclick="toggleShuffle()" id="shuffle-btn">Shuffle: OFF</button>
-    <button class="small-btn" onclick="toggleRepeat()" id="repeat-btn">Repeat: OFF</button>
+    <div>
+      <button onclick="prevSong()">Prev</button>
+      <button onclick="nextSong()">Next</button>
+    </div>
+
+    <div>
+      <button class="small-btn" onclick="toggleShuffle()" id="shuffle-btn">Shuffle: OFF</button>
+      <button class="small-btn" onclick="toggleRepeat()" id="repeat-btn">Repeat: OFF</button>
+    </div>
+
+    <div class="playlist">
+      <ul id="playlist"></ul>
+    </div>
   </div>
 
   <script>
     const playlist = [
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Flatline.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Sahabat Jadi Cinta.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Hold Me Down.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Idgitaf - Sedia Aku Sebelum Hujan (Official Lyric Video).mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Daniel Caesar - Who Knows (Official Lyric Video) [glscfhJyZHo].mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Multo - Cup of Joe (Official Lyric Video).mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Nuts.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/The 1975 - About You (Official).mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/You Da One.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/Chris Brown - Girl You Loud (Lyrics) ft. Tyga.mp3",
-      "https://raw.githubusercontent.com/rikorandika910/wkw/main/H.E.R. - Best Part (Lyrics) Ft. Daniel Caesar.mp3"
+      { title: "Flatline", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Flatline.mp3" },
+      { title: "Sahabat Jadi Cinta", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Sahabat Jadi Cinta.mp3" },
+      { title: "Hold Me Down", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Hold Me Down.mp3" },
+      { title: "Sedia Aku Sebelum Hujan - Idgitaf", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Idgitaf - Sedia Aku Sebelum Hujan (Official Lyric Video).mp3" },
+      { title: "Who Knows - Daniel Caesar", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Daniel Caesar - Who Knows (Official Lyric Video) [glscfhJyZHo].mp3" },
+      { title: "Multo - Cup of Joe", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Multo - Cup of Joe (Official Lyric Video).mp3" },
+      { title: "Nuts", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Nuts.mp3" },
+      { title: "About You - The 1975", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/The 1975 - About You (Official).mp3" },
+      { title: "You Da One", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/You Da One.mp3" },
+      { title: "Girl You Loud - Chris Brown", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/Chris Brown - Girl You Loud (Lyrics) ft. Tyga.mp3" },
+      { title: "Best Part - H.E.R", src: "https://raw.githubusercontent.com/rikorandika910/wkw/main/H.E.R. - Best Part (Lyrics) Ft. Daniel Caesar.mp3" }
     ];
 
     let index = 0;
     let shuffle = false;
     let repeatMode = 0; 
-    // 0 = off, 1 = repeat playlist, 2 = repeat one
+    // 0 = off, 1 = repeat all, 2 = repeat one
 
     const audio = document.getElementById("audio");
     const title = document.getElementById("song-title");
+    const list = document.getElementById("playlist");
 
     function loadSong(i) {
-      audio.src = playlist[i];
-      title.textContent = "Memutar: " + playlist[i].split("/").pop();
+      audio.src = playlist[i].src;
+      title.textContent = "Memutar: " + playlist[i].title;
       audio.play();
+      renderPlaylist();
+      localStorage.setItem("lastSong", i);
+    }
+
+    function renderPlaylist() {
+      list.innerHTML = "";
+      playlist.forEach((song, i) => {
+        const li = document.createElement("li");
+        li.textContent = (i + 1) + ". " + song.title;
+        if (i === index) li.classList.add("active");
+
+        li.onclick = () => {
+          index = i;
+          loadSong(index);
+        };
+        list.appendChild(li);
+      });
     }
 
     function nextSong() {
@@ -102,13 +179,14 @@
 
     function toggleShuffle() {
       shuffle = !shuffle;
-      document.getElementById("shuffle-btn").innerText = "Shuffle: " + (shuffle ? "ON" : "OFF");
+      document.getElementById("shuffle-btn").innerText =
+        "Shuffle: " + (shuffle ? "ON" : "OFF");
     }
 
     function toggleRepeat() {
       repeatMode = (repeatMode + 1) % 3;
-
       const btn = document.getElementById("repeat-btn");
+
       if (repeatMode === 0) btn.innerText = "Repeat: OFF";
       if (repeatMode === 1) btn.innerText = "Repeat: ALL";
       if (repeatMode === 2) btn.innerText = "Repeat: ONE";
@@ -117,16 +195,21 @@
     audio.addEventListener("ended", () => {
       if (repeatMode === 2) {
         loadSong(index);
-      } else if (repeatMode === 1) {
-        nextSong();
       } else {
         nextSong();
       }
     });
+
+    audio.addEventListener("error", () => {
+      console.log("Lagu error, skip...");
+      nextSong();
+    });
+
+    const saved = localStorage.getItem("lastSong");
+    if (saved !== null) index = parseInt(saved);
 
     loadSong(index);
   </script>
 
 </body>
 </html>
-
